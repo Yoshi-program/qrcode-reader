@@ -7,12 +7,12 @@ const Home: NextPage = () => {
   const [result, setResult] = useState<string>('')
   useEffect(() => {
     const postData = async () => {
-      await fetch('/api/test', {
+      await fetch('https://', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ qrcode: result }),
+        body: `${result}`,
       })
     }
     postData()
