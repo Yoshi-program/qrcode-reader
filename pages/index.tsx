@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: `${result}`,
+        body: `${JSON.stringify(result)}`,
       })
     }
     postData()
