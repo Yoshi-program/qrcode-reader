@@ -6,7 +6,7 @@ type Props = {
 }
 
 const QrReader = ({ setResult, onRequestClose }: Props) => {
-  // const deviceId = 'Your Camera DevideId'
+  // const deviceId = 'Camera DevideId'
   const { ref } = useZxing({
     onResult(result) {
       setResult(result.getText())
