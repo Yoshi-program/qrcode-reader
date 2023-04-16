@@ -1,13 +1,18 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import QrReader from '../components/QrReader'
-import SoundPlayer from '../lib/playSound'
-
-const soundPlayer = new SoundPlayer()
 
 const Home: NextPage = () => {
   // 読み込んだ QR コードのテキスト情報を格納
   const [result, setResult] = useState<string>('')
+  const [allowedSound, setAllowedSound] = useState<HTMLAudioElement | null>(null)
+  const [deniedSound, setDeniedSound] = useState<HTMLAudioElement | null>(null)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setAllowedSound(new Audio('/success.mp3'))
+      setDeniedSound(new Audio('/fail.mp3'))
+    }
+  }, [])
   // useEffect(() => {
   //   const postData = async () => {
   //     await fetch('https://', {
@@ -19,16 +24,21 @@ const Home: NextPage = () => {
   //     })
   //       .then(() => {
   //         // 成功時
-  //         soundPlayer.playBeep()
+  //         if (allowedSound) {
+  //           allowedSound.play()
+  //         }
   //       })
   //       .catch(() => {
   //         // 失敗時（入館許可がない場合）
-  //         soundPlayer.playBeep()
-  //         soundPlayer.playBeep()
+  //         if (deniedSound) {
+  //           deniedSound.play()
+  //         }
   //       })
   //   }
-  //   postData()
-  // }, [result])
+  //   if (result !== '') {
+  //     postData()
+  //   }
+  // }, [result, allowedSound, deniedSound])
   return (
     <div>
       <QrReader setResult={setResult} onRequestClose={() => null} />
